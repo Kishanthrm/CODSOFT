@@ -7,7 +7,6 @@ import {
 import { Toaster } from "react-hot-toast";
 import SignUp from "./pages/Auth/SignUp";
 import Login from "./pages/Auth/Login";
-import LandingPage from "./pages/LandingPage/components/LandingPage";
 import JobSeekerDetails from "./pages/JobSeeker/components/JobSeekerDetails";
 import JobDetails from "./pages/JobSeeker/components/JobDetails";
 import SavedJobs from "./pages/JobSeeker/components/SavedJobs";
@@ -18,6 +17,7 @@ import ManageJobs from "./pages/Employer/ManageJobs";
 import ApplicationViewer from "./pages/Employer/ApplicationViewer";
 import EmployerProfilePage from "./pages/Employer/EmployerProfilePage";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 const App = () => {
   return (
