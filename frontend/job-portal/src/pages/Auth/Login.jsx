@@ -10,8 +10,11 @@ import {
   CheckCircle
 } from 'lucide-react';
 import { validateEmail } from '../../utils/helper';
+import {useAuth} from "../../context/AuthContext";
+import { API_PATHS } from '../../utils/apiPaths';
+import axiosInstance from "../../utils/axiosInstance"
 const Login = () => {
-
+  const {login}=useAuth()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -74,6 +77,40 @@ const validatePassword = (password) => {
 
   try {
     // Login API integration
+    const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+  email: formData.email,
+  password: formData.password,
+  rememberMe: formData.rememberMe
+});
+  setFormState(prev => ({
+  ...prev,
+  loading: false,
+  success: true,
+  errors: {}
+}));
+
+const { token, role } = response.data;
+
+if (token) {
+  login(response.data, token);
+  // ...
+  // Redirect based on role
+  setTimeout(() => {
+    window.location.href =
+      role === "employer"
+        ? "/employer-dashboard"
+        : "/find-jobs";
+  }, 2000);
+}
+
+// Redirect based on user role
+setTimeout(() => {
+  const redirectPath = user.role === 'employer'
+    ? '/employer-dashboard'
+    : '/find-jobs';
+  window.location.href = redirectPath;
+}, 1500);
+
   } catch (error) {
     setFormState(prev => ({
       ...prev,
@@ -97,9 +134,8 @@ return (
       <p className="text-gray-600 mb-4">
         You have been successfully logged in.
       </p>
-      <div className="animate-spin w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full mx-auto">
-        <p className="text-sm text-gray-500 mt-2">Redirecting to your dashboard...</p>
-      </div>
+      <div className="animate-spin w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full mx-auto"></div>
+      <p className="text-sm text-gray-500 mt-2">Redirecting to your dashboard...</p>
     </motion.div>
   </div>
 );

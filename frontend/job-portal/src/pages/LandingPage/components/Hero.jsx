@@ -1,10 +1,11 @@
 import {motion} from 'framer-motion';
 import {Search,ArrowRight,Users,Building2,TrendingUp} from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; 
+import { useAuth } from '../../../context/AuthContext';
 const Hero = () => {
-  const isAuthenticated = true
-  const user ={fulName:"Alex",role:"employer" }
+const {user,isAuthenticated}=useAuth();
   const navigate = useNavigate();
+  
   const stats=[
     {icon:Users,label:'Active Users',value:'2.4M+'},
     {icon:Building2,label:'Companies',value:'50k+'},
@@ -99,11 +100,13 @@ const Hero = () => {
                     </div>
 
                     {/* Subtle Background Elements */}
-                    <div className='absolute inset-0 overflow-hidden pointer-events-none'>
-                      <div className='absolute top-20 left-10 w-32 h-32 bg-blue-100 rounded-full blur-3xl opacity-30'/>
-                      <div className='absolute bottom-20 right-10 w-40 h-40 bg-purple-100 rounded-full blur-3xl opacity-30'/>
-                      <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full blur-3xl opacity-20'/>
-                    </div>
+                    {/* Subtle Background Elements */}
+<div className='absolute inset-0 overflow-hidden pointer-events-none z-0'>
+  <div className='absolute top-20 left-10 w-32 h-32 bg-blue-100 rounded-full blur-3xl opacity-30'/>
+  <div className='absolute bottom-20 right-10 w-40 h-40 bg-purple-100 rounded-full blur-3xl opacity-30'/>
+  <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full blur-3xl opacity-20'/>
+</div>
+
                     </section>
   )
 }
